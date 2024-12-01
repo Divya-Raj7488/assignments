@@ -6,24 +6,16 @@ assessment_schema = {
     "type": "object",
     "properties": {
         "assessment_id": {"type": "string"},
-        "title": {"type": "string"},
+        "title": {"type": "string", "minLength": 1},
         "description": {"type": "string"},
-        "subject": {"type": "string"},
-        "word_count": {"type": "integer"},
+        "subject": {"type": "string", "minLength": 1},
+        "word_count": {"type": "integer", "minimum": 0},
         "read_time": {"type": "string"},
         "publication_date": {
             "type": "string",
-            "pattern": "^(\\d{4}/\\d{2}/\\d{2}|NA)$",
+            "pattern": "^(\\d{4}/\\d{2}/\\d{2}|NA)$",  # YYYY/MM/DD or 'NA'
         },
-        "details": {
-            "type": "object",
-            "properties": {
-                "author": {"type": "string"},
-                "difficulty_level": {"type": "string"},
-                "keywords": {"type": "array", "items": {"type": "string"}},
-            },
-            "additionalProperties": True,
-        },
+        "details": {"type": "array", "items": {"type": "string"}, "default": []},
     },
     "required": [
         "assessment_id",
@@ -33,6 +25,7 @@ assessment_schema = {
         "word_count",
         "read_time",
         "publication_date",
+        "details",
     ],
     "additionalProperties": False,
 }
